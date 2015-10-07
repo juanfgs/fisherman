@@ -1,0 +1,4 @@
+require "./che"
+
+
+run Cuba

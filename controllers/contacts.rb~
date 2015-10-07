@@ -1,0 +1,12 @@
+module Controllers
+  module Contacts
+
+    def self.registered(app)
+      app.get '/' do
+        haml :'contacts/index', :format => :html5
+      end
+
+
+    end
+  end
+end

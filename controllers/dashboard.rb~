@@ -1,0 +1,12 @@
+module Controllers
+  module Dashboard
+
+    def self.registered(app)
+      app.get '/' do
+        erb :'contacts/index', :format => :html5
+      end
+
+
+    end
+  end
+end
