@@ -1,26 +1,28 @@
+require 'pp'
+
 module Helpers
   class Form
-    attr_accessor :fields, :html, :bootstrap
+    attr_accessor :fields, :html, :wrap
     
-    def initialize(bootstrap = false)
-      @bootstrap = bootstrap
+    def initialize( wrap = nil )
       @fields = []
       @html = ''
+      @wrap = wrap
+      
     end
 
-    def add_field(type, name = nil, klass = nil, value = nil, id = nil)
-      if @bootstrap
-        klass += " form-control"
+    def add_field(type, name = nil, options)
+      unless @wrap.nil? && !options[:wrap].nil?
+        options[:wrap] = @wrap
       end
-      field = ''
       case type.to_s
       when :text.to_s
-        field = TextField.new(name, klass, value, id)
+        @field = TextField.new(name, options )
       when :select.to_s
-        field = SelectField.new(name, klass, value, id)
+        @field = SelectField.new(name, options )
       end
       
-      @fields << field
+      @fields << @field
     end
     
     def render
@@ -35,60 +37,76 @@ module Helpers
   end
 
   class Field
-    attr_accessor :klass, :name, :value, :id, :html
-    def initialize(name, klass,value,id)
-      @name = name      
-      @klass = klass
-      @value = value
-      @id = id
+    attr_accessor :name, :options, :html
+    
+    def initialize(name, options)
+      @name = name
+      @options = options
+      @html = ''
+      
+      unless options[:wrap].nil?
+        @html += WrapField.new(name,options[:wrap]).to_s
+      end
+      
+      unless options[:label].nil?
+        @html += "<label for=\"#{name}\">#{options[:label]}</label>\n"
+      end
+      
+      build_html
+      
+      unless options[:wrap].nil?      
+        @html += CloseWrapField.new(name,options[:wrap]).to_s
+      end
     end
 
-
+    def to_s
+      @html 
+    end
   end
 
   class TextField < Field
-    def initialize(name,klass,value,id)
-      super(name,klass,value,id)
-      build_html
-    end
 
     def build_html
-      @html = "<input type=\"text\" name=\"#{name}\" class=\"#{klass}\", value=\"#{value}\" id=\"#{id}\"/>"      
+      @html += "<input type=\"text\" name=\"#{@name}\" class=\"#{@options[:class]}\" value=\"#{@options[:value]}\" id=\"#{@options[:id]}\"/>\n"
     end
 
-    def to_s
-      @html
-    end
-    
   end
 
   class SelectField < Field
-    def initialize(name,klass,value,id)
-      
-      if value.nil? && !value.is_a?(Array)
-        raise ArgumentError
-      end
-      
-      super(name,klass,value,id)
-      build_html
-    end
 
     def build_html
-      @html = "<select name=\"#{name}\">"
-      @value.each do |value|
+      
+      if @options[:values].nil?
+        raise ArgumentError, ":values must be a non-empty array"
+      end
+
+      @html += "<select name=\"#{name}\" class=\"#{@options[:class]}\">\n"
+      @options[:values].each do |value|
         if value[:label].nil?
           value[:label] = value[:value]
         end
-        
-        @html += "<option value=\"#{value[:value]}\">#{value[:label]}</option>"
-      end
-      @html += "</select>"
-    end
+        selected = ''
+        unless value[:selected].nil?
+          selected = 'selected="selected"'          
+        end
 
-    def to_s
-      @html
+        @html += "<option value=\"#{value[:value]}\" #{selected}>#{value[:label]}</option>\n"
+      end
+      @html += "</select>\n"
     end
     
+  end  
+
+  class WrapField < Field
+    def build_html
+      @html = "<#{options[:element]} class=\"#{options[:class]}\" id=\"#{options[:id]}\">"
+    end
+  end
+  
+  class CloseWrapField < Field
+    def build_html
+      @html = "</#{options[:element]}>\n"
+    end
   end  
   
 end
