@@ -8,10 +8,20 @@ module Controllers
       end
 
       app.get '/contacts/add' do
-        @form = Helpers::Form.new(true)
-        @form.add_field :text, 'url', 'form-control'
-        @form.add_field :select, 'status', 'form-control', [{:value => 'active', }]
-        erb( :'contacts/add', :locals => {:form => @form} )
+        @title = 'Add Contacts'        
+        @form = Helpers::Form.new({:element => 'div', :class => 'form-group'})
+        @form.add_field :text, 'url', {:class => 'form-control', :label => 'Url'}
+        @form.add_field(:select, 'status',
+                        {
+                          :values => [{:value => 'uno'}, {:value => 'dos'}, {:value => 'tres', :label => 'Tres'}],
+                          :class => 'form-control',
+                          :label => 'Status'
+                        }
+                       )
+        
+        
+
+        erb :'contacts/add'
       end      
 
     end
