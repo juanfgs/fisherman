@@ -4,7 +4,8 @@ gem "sqlite3"
 gem "activerecord"
 gem "standalone_migrations"
 gem "sinatra"
-
+gem "json"
+gem "sinatra-flash"
 
 
 group :development do

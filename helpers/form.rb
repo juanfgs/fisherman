@@ -35,6 +35,8 @@ module Helpers
         @field = SelectField.new(name, options )
       when :textarea.to_s
         @field = TextAreaField.new(name, options )
+      when :hidden.to_s
+        @field = HiddenField.new(name, options )        
       when :checkbox.to_s
         @field = CheckboxField.new(name, options )
       when :submit.to_s
@@ -100,6 +102,14 @@ module Helpers
 
   end
 
+
+    class HiddenField < Field
+
+    def build_html
+      @html += "<input type=\"hidden\" name=\"#{@name}\" value=\"#{@options[:value]}\" id=\"#{@options[:id]}\"/>\n"
+    end
+
+  end
 
   class CheckboxField < Field
 
