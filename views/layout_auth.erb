@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title %></title>
+    <link href="/css/bootstrap.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" media="screen, projection" rel="stylesheet" type="text/css">      
+    </head>
+
+    <body>
+
+
+
+          <div class="container-fluid">
+	    
+                <div class="row">
+                  <div class="col-lg-8 col-lg-offset-2">
+		    <% if flash[:errors]%>
+		    <% flash[:errors].each do |error| %>
+		    <div class="alert alert-danger" role="alert"><%= error %></div>
+		    <% end%>
+		    <% end %>
+
+		    <% if flash[:message]%>
+		    <div class="alert alert-success" role="alert"><%= flash[:message] %></div>
+		    <% end %>		    
+		          <%= yield %>
+                </div>
+            </div>
+
+
+
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <% if @scripts %>
+    <% @scripts.each do |script| %>
+    <script src="/js/<%= script[:url] %>"></script>
+    <% end %>
+    <% end %>
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+
+    </body>
+</html>
