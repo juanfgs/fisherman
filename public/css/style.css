@@ -123,3 +123,7 @@
         margin-right: 0;
     }
 }
+
+#contacts .contact:hover {
+    cursor:pointer;
+}

@@ -28,9 +28,9 @@
 
 <div id="cBox" class="col-md-4" style="display:none">
   <div class="row">
-    <div id="currentContact" >
-          <h4>Details for <span data-contact="name"></span></h4>
-	  <hr />
+    <div id="currentContact" class="panel panel-default" >
+          <div class="panel-heading">Details for <span data-contact="name"></span></div>
+	  <div class="panel-body">
 	  <p data-contact="description">
 	  </p>
 	  <dl>
@@ -41,15 +41,22 @@
 	    <dt>Created</dt>
 	    <dd data-contact="created_at"></dd>	    
 	  </dl>
+	  </div>
     </div>
   </div>
   <div class="row">
-    <ul id="commentList" class="list-group">
-    </ul>
+    <div id="commentList" class="panel panel-default">
+        <div class="panel-heading">Comments</div>
+	<div class="panel-body">
+	  
+	</div>
+
+
+    <div class="panel-footer" id="commentForm" >
+      <%= @comment_form.render %>
+    </div>
+    </div>
   </div>
-  <div class="row" id="commentForm">
-    <%= @comment_form.render %>
-  </div>  
 </div>
 </div>
 

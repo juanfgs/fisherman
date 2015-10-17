@@ -13,9 +13,9 @@ $(document).ready(function(){
 		$('#currentContact [data-contact=url]').text(res.contact.url);
 		$('#currentContact [data-contact=created_at]').text(res.contact.created_at);
 		$('#commentForm [name=contact_id]').val(res.contact.id);
-		$("#commentList").empty();
+		$("#commentList .panel-body").empty();
 		res.comments.forEach(function(value,idx){
-		    $("#commentList").append('<li class="list-group-item">' +value.comment +'</li>');
+		    $("#commentList .panel-body").append('<div class="media"><div class="media-left"></div><div class="media-body">' +value.comment +'</div></div><hr/>');
 		});
 	    }
 	});
@@ -28,11 +28,6 @@ $(document).ready(function(){
 
 	
     });
-
-
-
-
-
     
 });
 
