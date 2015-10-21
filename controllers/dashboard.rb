@@ -1,12 +1,6 @@
-module Controllers
-  module Dashboard
 
-    def self.registered(app)
-      app.get '/' do
-        erb :'dashboard/index', :format => :html5
-      end
+module Dashboard
 
 
-    end
-  end
 end
+
