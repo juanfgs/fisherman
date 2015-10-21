@@ -4,7 +4,7 @@ module Helpers
   class Form
     attr_accessor :fields, :html, :wrap, :options
     
-    def initialize( options )
+    def initialize( options = {} )
       @fields = []
       @html = ''
       @wrap = options[:wrap]
@@ -39,6 +39,8 @@ module Helpers
         @field = HiddenField.new(name, options )        
       when :checkbox.to_s
         @field = CheckboxField.new(name, options )
+      when :password.to_s
+        @field = PasswordField.new(name, options )        
       when :submit.to_s
         @field = SubmitField.new(name, options )                        
       end
@@ -87,13 +89,21 @@ module Helpers
   end
 
   class TextField < Field
-
+    
     def build_html
       @html += "<input type=\"text\" name=\"#{@name}\" placeholder=\"#{@options[:placeholder]}\" class=\"#{@options[:class]}\" value=\"#{@options[:value]}\" id=\"#{@options[:id]}\"/>\n"
     end
 
   end
 
+  class PasswordField < Field
+
+    def build_html
+      @html += "<input type=\"password\" name=\"#{@name}\" placeholder=\"#{@options[:placeholder]}\" class=\"#{@options[:class]}\" value=\"#{@options[:value]}\" id=\"#{@options[:id]}\"/>\n"
+    end    
+
+  end
+  
   class TextAreaField < Field
 
     def build_html
@@ -127,7 +137,7 @@ module Helpers
     end
     
   end
-  
+
   class SelectField < Field
 
     def build_html
