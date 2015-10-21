@@ -127,3 +127,15 @@
 #contacts .contact:hover {
     cursor:pointer;
 }
+
+.red{
+    background-color:#ffaaaa !important;
+}
+
+.orange{
+    background-color:#ffffff22 !important;
+}
+
+.green{
+    background-color:#aaffaa !important;
+}
