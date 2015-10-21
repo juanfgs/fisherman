@@ -1,14 +1,18 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: fisherman_devel
   pool: 5
-  timeout: 5000
+  username: root
+  password: fusion87
+  socket: /var/lib/mysql/mysql.sock
 
 production:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: fisherman_dev
+  database: fisherman
   pool: 5
   username: root
   password:
