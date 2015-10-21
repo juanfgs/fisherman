@@ -5,7 +5,7 @@
 <table class="table table-striped table-condensed">
   <thead>
     <tr>
-      <th>Name</th>      
+      <th>Name</th> 
       <th>Url</th>
       <th>Status</th>	      
     </tr>
@@ -13,7 +13,7 @@
   <tbody>  
     <%  @contacts.each_with_index do |contact,idx|  %>
 
-    <tr id="contact-<%= idx%>" data-id="<%= contact.id%>" class="contact">
+    <tr id="contact-<%= idx%>" data-id="<%= contact.id%>" class="contact <%= Helpers::Contact.date_heat(contact.created_at) %>">
       <td><%= contact.name %></td>  
       <td><%= contact.url %></td>
       <td><span class="badge"><%= contact.status %></span></td>
@@ -39,7 +39,9 @@
 	    <dt>Url</dt>
 	    <dd data-contact="url"></dd>
 	    <dt>Created</dt>
-	    <dd data-contact="created_at"></dd>	    
+	    <dd data-contact="created_at"></dd>
+	    <dt>By</dt>
+	    <dd data-contact="created_by"></dd>	    	    
 	  </dl>
 	  </div>
     </div>
@@ -48,13 +50,12 @@
     <div id="commentList" class="panel panel-default">
         <div class="panel-heading">Comments</div>
 	<div class="panel-body">
-	  
+	  <div class="list"></div>
+	  <hr />
+	  <div id="commentForm">
+	    <%= @comment_form.render %>
+	  </div>
 	</div>
-
-
-    <div class="panel-footer" id="commentForm" >
-      <%= @comment_form.render %>
-    </div>
     </div>
   </div>
 </div>
