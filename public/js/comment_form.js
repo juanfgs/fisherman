@@ -5,10 +5,10 @@ $(document).ready(function(){
 	    url: '/contacts/' + $(this).attr('data-id'),
 	    success:function(res){
 		var res = JSON.parse(res);
-
+		window.location.hash = 'contact-' + res.id;
 		$('#currentContact [data-contact=name]').text(res.name);
 		$('#currentContact [data-contact=description]').text(res.description);
-		$('#currentContact [data-contact=status]').text(res.status);
+		$('#currentContact [data-contact=status] select').val(res.status);
 		$('#currentContact [data-contact=url]').text(res.url);
 		$('#currentContact [data-contact=created_by]').text(res.user.name);		
 		$('#currentContact [data-contact=created_at]').text(res.created_at);
@@ -28,6 +28,9 @@ $(document).ready(function(){
 
 	
     });
+    
+    var hash = window.location.hash;
+    $(hash).trigger("click");
     
 });
 
