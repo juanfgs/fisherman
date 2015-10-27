@@ -1,22 +1,30 @@
-
-<h2>Contacts</h2>
+<h3>Contacts</h3>
 <div class="row" id="contacts">
-  <div class="col-md-12">
-<table class="table table-striped table-condensed">
+
+  
+  <div id="cList" class="col-md-12">
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Search " aria-describedby="basic-addon2">
+  <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search"></span></span>
+</div>
+<br />    
+<table class="table table-bordered table-striped table-condensed">
   <thead>
     <tr>
       <th>Name</th> 
       <th>Url</th>
-      <th>Status</th>	      
+      <th>Status</th>
+      <th>Actions</th>	            
     </tr>
   </thead>
   <tbody>  
     <%  @contacts.each_with_index do |contact,idx|  %>
 
-    <tr id="contact-<%= idx%>" data-id="<%= contact.id%>" class="contact <%= Helpers::Contact.date_heat(contact.created_at) %>">
+    <tr id="contact-<%= contact.id %>" data-id="<%= contact.id%>" class="contact <%= Helpers::Contact.date_heat(contact.created_at) %>">
       <td><%= contact.name %></td>  
-      <td><%= contact.url %></td>
+      <td><a href="<%= contact.url %>" target="_blank"><%= contact.url %></a></td>
       <td><span class="badge"><%= contact.status %></span></td>
+      <td><a href="/contacts/<%= contact.id %>/delete" class="btn-danger btn-sm"><span class="glyphicon glyphicon-remove" id="toggle-full-width"></span> Delete </a></td>
     </tr>
 
 
@@ -24,25 +32,27 @@
     
   </tbody>    
 </table>
+
 </div>
 
 <div id="cBox" class="col-md-4" style="display:none">
   <div class="row">
     <div id="currentContact" class="panel panel-default" >
-          <div class="panel-heading">Details for <span data-contact="name"></span></div>
+          <div class="panel-heading">Details for <span data-contact="name"></span><span class="glyphicon glyphicon-fullscreen pull-right" id="toggle-full-width"></span></div>
 	  <div class="panel-body">
 	  <p data-contact="description">
 	  </p>
 	  <dl>
 	    <dt>Status</dt>
-	    <dd data-contact="status"></dd>
-	    <dt>Url</dt>
+	    <dd data-contact="status" id="status"><%= @select_status %></dd>
+	    <dt>Url</dt> 
 	    <dd data-contact="url"></dd>
 	    <dt>Created</dt>
 	    <dd data-contact="created_at"></dd>
 	    <dt>By</dt>
 	    <dd data-contact="created_by"></dd>	    	    
 	  </dl>
+	  <input type="hidden" data-contact="id" value=""/>
 	  </div>
     </div>
   </div>

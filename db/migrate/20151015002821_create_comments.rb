@@ -4,7 +4,7 @@ class CreateComments < ActiveRecord::Migration
       t.references :contact, index: true
       t.belongs_to :user, index: true
       t.text :comment
-      t.timestamp
+      t.timestamps :null => false
     end
   end
 end

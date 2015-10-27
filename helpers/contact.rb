@@ -3,9 +3,10 @@ module Helpers
   class Contact
     def self.date_heat( date )
       diff = Time.now - date
-      if date.to_i < 10
+
+      if diff.to_i < 45000
         'green'
-        elsif date.to_i < 60
+        elsif diff.to_i < 90000
         'orange'
       else
         'red'

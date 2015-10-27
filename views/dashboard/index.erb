@@ -1,4 +1,3 @@
-<h1>Contact Manager</h1>
 <div class="col-md-12">
   <div class="col-md-6">
   <div class="panel panel-default " id="contacts">
@@ -6,18 +5,23 @@
       Latest Contacts
     </div>
     <div class="panel-body">
-      <table class="table table-striped table-condensed">
+      <table class="table table-bordered table-striped table-condensed">
       <% @contacts.each do |contact| %>
       <tr>
 	<td>
-	  <%= contact.name %>
+	  <a href="/contacts/#contact-<%= contact.id %>"><%= contact.name %></a>
 	</td>
+	<td>
+	  <%= contact.created_at.strftime('%B %d, %Y') %>
+	</td>
+	
 	</tr>
       <% end %>
       </table>
     </div>
     <div class="panel-footer">
       <a href="/contacts/" class="btn-sm btn-primary "> See All </a>
+      <a href="/contacts/add" class="btn-sm btn-success pull-right "> + </a>      
     </div>  
   </div>
   </div>
@@ -27,19 +31,19 @@
       Latest comments
     </div>
     <div class="panel-body">
-      <table class="table table-striped table-condensed">
+      <table class="table table-bordered table-striped table-condensed">
       <% @comments.each do |comment| %>
       <tr>
 	<td>
 	  <%= comment.comment %>
 	</td>
+	<td>
+	  <%= comment.created_at.strftime('%B %d, %Y') %>
+	</td>
 	</tr>
       <% end %>
       </table>
     </div>
-    <div class="panel-footer">
-      <a href="/contacts/" class="btn-sm btn-primary"> See All </a>
-    </div>  
   </div>
   </div>
 </div>
