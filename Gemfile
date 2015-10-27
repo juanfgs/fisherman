@@ -12,6 +12,8 @@ gem "bcrypt"
 gem "warden" 
 
 
+
+
 group :development do
   gem "shotgun"
 end
