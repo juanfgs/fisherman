@@ -1,6 +1,7 @@
 module Helpers
   
   class Contact
+    # Calculate the "heat" class of a given date
     def self.date_heat( date )
       diff = Time.now - date
 
@@ -12,6 +13,13 @@ module Helpers
         'red'
       end
     end
+
+    def self.status_label( status )
+      @statuses = ::Contact.status_values
+      @status = @statuses.detect {|e| e[:value] == status}
+      @status[:label]
+    end
+    
   end
   
 end

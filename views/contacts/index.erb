@@ -23,7 +23,7 @@
     <tr id="contact-<%= contact.id %>" data-id="<%= contact.id%>" class="contact <%= Helpers::Contact.date_heat(contact.created_at) %>">
       <td><%= contact.name %></td>  
       <td><a href="<%= contact.url %>" target="_blank"><%= contact.url %></a></td>
-      <td><span class="badge"><%= contact.status %></span></td>
+      <td><span class="badge"><%= Helpers::Contact.status_label(contact.status) %></span></td>
       <td><a href="/contacts/<%= contact.id %>/delete" class="btn-danger btn-sm"><span class="glyphicon glyphicon-remove" id="toggle-full-width"></span> Delete </a></td>
     </tr>
 
