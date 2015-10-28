@@ -2,7 +2,7 @@ $(document).ready(function(){
     
 
 
-    
+    // open the contact box and comment box
     $('.contact').click(function(){
 	$.ajax({
 	    url: '/contacts/' + $(this).attr('data-id'),
@@ -21,11 +21,8 @@ $(document).ready(function(){
 		res.comments.forEach(function(value,idx){
 		    $("#commentList .panel-body .list").append('<div class="media"><div class="media-left">'+value.user.name+'</div><div class="media-body">' +value.comment +'</div></div><hr/>');
 		});
-
-
 	    }
 	});
-
 	
 	if( !$('#cBox').is(":visible") ){
 	    $('#contacts .col-md-12').addClass('col-md-8').removeClass('col-md-12');;
@@ -34,6 +31,8 @@ $(document).ready(function(){
 
     });
 
+
+    // make contact description and comment box full width
     $(document).on('click', '#toggle-full-width', function(){
 	if($("#cList").is(":visible")){
 	    $("#cBox").removeClass("col-md-4");
@@ -48,16 +47,23 @@ $(document).ready(function(){
 	    $("#cBox").removeClass("col-md-12");
 	    $("#cList").show();
 	}
-    });		
+    });
+
     
+    // Change status of contact
     $("[data-contact=status]").change(function(){
 	$.ajax({
 	    url: '/contacts/' + $('[data-contact=id]').val() + '/edit',
 	    method: 'POST',
 	    data: {status: $("[name=status]").val() }
+
+	    
 	});
+		window.location.reload();
+	
     });
-    
+
+    // trigger click when a contact is referenced by hash
     var hash = window.location.hash;
     $(hash).trigger("click");
 
