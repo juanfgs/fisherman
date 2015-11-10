@@ -3,7 +3,7 @@ class CreateContacts < ActiveRecord::Migration
     create_table :contacts do |t|
       t.belongs_to :user, index: true      
       t.string :name, :null => true
-      t.string :url, :null => false
+      t.string :url, :null => false, :unique => true
       t.string :description, :null =>true
       t.string :status, :default => 'not-contacted'
 
