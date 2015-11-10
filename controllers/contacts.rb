@@ -18,10 +18,10 @@ module Contacts
                         :label => 'Status'
                       }
                      )
-      @form.add_field(:textarea, 'description', {:class => 'form-control', :label => 'Description'})
+      @form.add_field(:textarea, 'description', {:class => 'form-control summernote', :label => 'Description'})
       @form.add_field(:hidden, 'user_id', {:value => env['warden'].user.id })      
       @form.add_field :submit, '', {:value => 'Add Contact', :class => 'btn btn-primary pull-right'}
-
+      @scripts = [{url: 'comment_form.js' }, {url: 'summernote.min.js'}]
       erb :'contacts/add'
     end      
 
@@ -42,7 +42,7 @@ module Contacts
       @title = "Contacts"
       @contacts = Contact.all
 
-      @scripts = [{url: 'comment_form.js' }, {url: 'search.js'}]
+      @scripts = [{url: 'comment_form.js' }, {url: 'search.js'}, {url: 'summernote.min.js'}]
       
       @select_status = Helpers::SelectField.new(
         'status',
@@ -52,7 +52,7 @@ module Contacts
         })
 
       @comment_form = Helpers::Form.new({:method => 'POST',:action => '/comments/add', :wrap => {:element => 'div', :class => 'form-group'}})
-      @comment_form.add_field :textarea, 'comment', {:class => 'form-control', :label => 'Add Comment'}
+      @comment_form.add_field :textarea, 'comment', {:class => 'form-control summernote', :label => 'Add Comment'}
       @comment_form.add_field :hidden, 'contact_id', {:value => params[:id]}
       @comment_form.add_field :hidden, 'user_id', {:value => env['warden'].user.id }      
       @comment_form.add_field :submit, 'add', {:value => 'Add Comment', :class => 'btn btn-primary pull-right'} 
@@ -108,10 +108,15 @@ module Contacts
 
     app.get '/contacts/search/:terms' do
 
-      @contacts = Contact.where("contacts.name LIKE :terms OR contacts.description LIKE :terms OR contacts.url LIKE :terms", {:terms => "%#{params[:terms]}%"}).all
-      @contacts.to_json
+        @contacts = Contact.where("contacts.name LIKE :terms OR contacts.description LIKE :terms OR contacts.url LIKE :terms", {:terms => "%#{params[:terms]}%"}).all
+        @contacts.to_json
+
     end
     
+    app.get '/contacts/search/' do
+      @contacts = Contact.all
+      @contacts.to_json
+    end
   end
 end
 
