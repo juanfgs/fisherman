@@ -27,11 +27,11 @@ ActiveRecord::Schema.define(version: 20151017161013) do
   create_table "contacts", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
     t.string   "name",        limit: 255
-    t.string   "url",         limit: 255,                           null: false
-    t.string   "description", limit: 255
-    t.string   "status",      limit: 255, default: "not-contacted"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.string   "url",         limit: 255,                             null: false
+    t.text     "description", limit: 65535
+    t.string   "status",      limit: 255,   default: "not-contacted"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
   end
 
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
