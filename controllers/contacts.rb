@@ -42,7 +42,7 @@ module Contacts
       @title = "Contacts"
       @contacts = Contact.all
 
-      @scripts = [{:url => 'comment_form.js'}]
+      @scripts = [{url: 'comment_form.js' }, {url: 'search.js'}]
       
       @select_status = Helpers::SelectField.new(
         'status',
@@ -104,6 +104,12 @@ module Contacts
       @comments = Comment.all
       
       erb :'dashboard/index', :format => :html5
+    end
+
+    app.get '/contacts/search/:terms' do
+
+      @contacts = Contact.where("contacts.name LIKE :terms OR contacts.description LIKE :terms OR contacts.url LIKE :terms", {:terms => "%#{params[:terms]}%"}).all
+      @contacts.to_json
     end
     
   end
