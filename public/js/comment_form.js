@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    $('.summernote').summernote({height: 120, tabsize: 4});
     // open the contact box and comment box
     $('.contact').click(commentBox);
 

@@ -1,13 +1,14 @@
 $(document).ready(function(){
     $("#searchBox").keypress(function(){
 
-	if($(this).val().length >= 3){
+	if($(this).val().length >= 3 || $(this).val().length <= 0){
 	    $.ajax({
 		url: '/contacts/search/' + $(this).val(),
 		success: function(res){
 		    res = JSON.parse(res);
 		    $("#cList .table tbody").empty();
 		    if(Array.isArray(res)){
+			console.log(res);
 			res.forEach(function(val,idx,el){
 			    var line = " \
 <tr data-id=\""+ val.id +"\"> \
@@ -24,7 +25,8 @@ $(document).ready(function(){
 		}
 	
 	    });
-	}
+	} 
+	
     });
 });
 
