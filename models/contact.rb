@@ -1,7 +1,7 @@
 require 'uri'
 
 class Contact < ActiveRecord::Base
-  validates :url, presence: true, format: {:with =>  URI::regexp(%w(http https)), :message =>  'Must be a valid web address' }
+  validates :url, presence: true, format: {:with =>  URI::regexp(%w(http https)), :message =>  'Must be a valid web address' }, uniqueness: true
 
   belongs_to :user
   has_many :comments
@@ -14,4 +14,9 @@ class Contact < ActiveRecord::Base
       {:value => 'need-info', :label => 'Needs additional info'}
     ]
   end
+
+
+
+
 end
+ 
