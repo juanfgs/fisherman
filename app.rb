@@ -10,7 +10,10 @@ Dir["./helpers/*.rb"].each { |file| require file }
 
 class Fisherman < Sinatra::Application
   enable :sessions
-
+  secret = File.open('.session_secret').read
+  if secret
+    set :session_secret, secret
+  end
   ActiveRecord::Base.configurations = YAML::load(IO.read('db/config.yml'))
   ActiveRecord::Base.establish_connection(:development)
 
