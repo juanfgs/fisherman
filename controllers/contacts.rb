@@ -11,6 +11,7 @@ module Contacts
       @form = Helpers::Form.new({:method => 'POST',:wrap => {:element => 'div', :class => 'form-group'}})
       @form.add_field :text, 'name', {:class => 'form-control', :label => 'Name'}        
       @form.add_field :text, 'url', {:class => 'form-control', :label => 'Web Address'}
+      @form.add_field :text, 'email', {:class => 'form-control', :label => 'Email'}      
       @form.add_field(:select, 'status',
                       {
                         :values => Contact.status_values,
@@ -26,7 +27,17 @@ module Contacts
     end      
 
     app.post '/contacts/add' do
-      @contact = Contact.new(params)
+      
+      
+      @contact = Contact.new({
+                               name: params[:name],
+                               url: params[:url],
+                               email: params[:email],                               
+                               description: params[:description],
+                               user_id: params[:user_id],                               
+                               status: params[:status],                               
+                               
+                             })
 
       if @contact.save
         flash[:message] = "Contact was saved successfully"

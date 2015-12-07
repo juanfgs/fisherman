@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20151017161013) do
   create_table "contacts", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
     t.string   "name",        limit: 255
+    t.string   "email",       limit: 255
     t.string   "url",         limit: 255,                             null: false
     t.text     "description", limit: 65535
     t.string   "status",      limit: 255,   default: "not-contacted"

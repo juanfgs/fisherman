@@ -3,43 +3,51 @@
 
   
   <div id="cList" class="col-md-12">
-<div class="input-group">
-  <input type="text" class="form-control" placeholder="Search " id="searchBox" aria-describedby="basic-addon2">
-  <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search"></span></span>
-</div>
-<br />    
-<table class="table table-bordered table-striped table-condensed">
-  <thead>
-    <tr>
-      <th>Name</th> 
-      <th>Url</th>
-      <th>Status</th>
-      <th>Actions</th>	            
-    </tr>
-  </thead>
-  <tbody>  
-    <%  @contacts.each_with_index do |contact,idx|  %>
-
-    <tr id="contact-<%= contact.id %>" data-id="<%= contact.id%>" class="contact <%= Helpers::Contact.date_heat(contact.created_at) %>">
-      <td><%= contact.name %></td>  
-      <td><a href="<%= contact.url %>" target="_blank"><%= contact.url %></a></td>
-      <td><span class="badge"><%= Helpers::Contact.status_label(contact.status) %></span></td>
-      <td><a href="/contacts/<%= contact.id %>/delete" class="btn-danger delete btn-sm"><span class="glyphicon glyphicon-remove" id="toggle-full-width"></span> Delete </a></td>
-    </tr>
+    <div class="input-group " >
+      <input type="text" class="form-control" placeholder="Search " id="searchBox" aria-describedby="basic-addon2" />
+	<span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search"></span></span>
 
 
-    <%  end %>
-    
-  </tbody>    
-</table>
+	<select id="filterBy" class="form-control">
+	  <% Contact.status_values.each do |status| %>
+	  <option value="<% status[:value] %>"><%= status[:label] %></option>
+	  <% end %>
+	</select>
 
-</div>
+    </div>
+      <br />    
+      <table class="table table-bordered table-striped table-condensed">
+	<thead>
+	  <tr>
+	    <th>Name</th> 
+	    <th>Url</th>
+	    <th>Status</th>
+	    <th>Actions</th>	            
+	  </tr>
+	</thead>
+	<tbody>  
+	  <%  @contacts.each_with_index do |contact,idx|  %>
 
-<div id="cBox" class="col-md-4" style="display:none">
-  <div class="row">
-    <div id="currentContact" class="panel panel-default" >
-          <div class="panel-heading">Details for <span data-contact="name"></span><span class="glyphicon glyphicon-fullscreen pull-right" id="toggle-full-width"></span></div>
-	  <div class="panel-body">
+	  <tr id="contact-<%= contact.id %>" data-id="<%= contact.id%>" class="contact <%= Helpers::Contact.date_heat(contact.created_at) %>">
+	  <td><%= contact.name %></td>  
+	  <td><a href="<%= contact.url %>" target="_blank"><%= contact.url %></a></td>
+	  <td><span class="badge"><%= Helpers::Contact.status_label(contact.status) %></span></td>
+	  <td><a href="/contacts/<%= contact.id %>/delete" class="btn-danger delete btn-sm"><span class="glyphicon glyphicon-remove" id="toggle-full-width"></span> Delete </a></td>
+	</tr>
+
+
+	<%  end %>
+	
+      </tbody>    
+    </table>
+
+  </div>
+
+  <div id="cBox" class="col-md-4" style="display:none">
+    <div class="row">
+      <div id="currentContact" class="panel panel-default" >
+        <div class="panel-heading">Details for <span data-contact="name"></span><span class="glyphicon glyphicon-fullscreen pull-right" id="toggle-full-width"></span></div>
+	<div class="panel-body">
 	  <p data-contact="description">
 	  </p>
 	  <dl>
@@ -53,11 +61,11 @@
 	    <dd data-contact="created_by"></dd>	    	    
 	  </dl>
 	  <input type="hidden" data-contact="id" value=""/>
-	  </div>
+	</div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div id="commentList" class="panel panel-default">
+    <div class="row">
+      <div id="commentList" class="panel panel-default">
         <div class="panel-heading">Comments</div>
 	<div class="panel-body">
 	  <div class="list"></div>
@@ -66,8 +74,8 @@
 	    <%= @comment_form.render %>
 	  </div>
 	</div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
