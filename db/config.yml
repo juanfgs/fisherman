@@ -5,8 +5,9 @@ development:
   database: fisherman_devel
   pool: 5
   username: root
-  password: fusion87
-  socket: /var/lib/mysql/mysql.sock
+  password: HHrUZyI6ubWF
+  hostname: 127.0.0.1
+  port: 3566
 
 production:
   adapter: mysql

@@ -34,7 +34,7 @@ class Fisherman < Sinatra::Application
     env['REQUEST_METHOD'] = 'POST'
   end
 
-  before /^(?!\/(users))/ do
+  before /(?!\/(users))/ do
       env['warden'].authenticate!
   end
 
